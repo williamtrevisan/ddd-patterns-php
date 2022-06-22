@@ -34,7 +34,7 @@ class LibraryUnitTest extends TestCase
     }
 
     /** @test */
-    public function should_be_throw_an_excpetion_if_email_received_is_invalid()
+    public function should_be_throw_an_exception_if_email_received_is_invalid()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The email must be valid');
@@ -103,7 +103,7 @@ class LibraryUnitTest extends TestCase
     }
 
     /** @test */
-    public function should_be_throw_an_excpetion_if_email_received_in_update_is_invalid()
+    public function should_be_throw_an_exception_if_email_received_in_update_is_invalid()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The email must be valid');

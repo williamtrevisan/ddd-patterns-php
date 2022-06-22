@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Domain\Entity;
 
+use Domain\Entity\Book;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -166,23 +167,6 @@ class BookUnitTest extends TestCase
     }
 
     /** @test */
-    public function should_be_throw_an_exception_if_library_id_received_to_update_is_null()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The library id is required');
-
-        $payload = ['libraryId' => null];
-
-        $book = new Book(
-            libraryId: Uuid::uuid4(),
-            title: 'Book title',
-            pageNumber: 201,
-            yearLaunched: 2009,
-        );
-        $book->update(libraryId: $payload['libraryId']);
-    }
-
-    /** @test */
     public function should_be_able_to_update_a_book_library_id()
     {
         $payload = ['libraryId' => Uuid::uuid4()];
@@ -251,23 +235,6 @@ class BookUnitTest extends TestCase
     }
 
     /** @test */
-    public function should_be_throw_an_exception_if_page_number_received_to_update_is_null()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The page number is required');
-
-        $payload = ['pageNumber' => null];
-
-        $book = new Book(
-            libraryId: Uuid::uuid4(),
-            title: 'Book title',
-            pageNumber: 201,
-            yearLaunched: 2009,
-        );
-        $book->update(pageNumber: $payload['pageNumber']);
-    }
-
-    /** @test */
     public function should_be_able_to_update_a_book_page_number()
     {
         $payload = ['pageNumber' => 251];
@@ -281,23 +248,6 @@ class BookUnitTest extends TestCase
         $book->update(pageNumber: $payload['pageNumber']);
 
         $this->assertEquals($payload['pageNumber'], $book->pageNumber);
-    }
-
-    /** @test */
-    public function should_be_throw_an_exception_if_year_launched_received_to_update_is_null()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The year launched is required');
-
-        $payload = ['yearLaunched' => null];
-
-        $book = new Book(
-            libraryId: Uuid::uuid4(),
-            title: 'Book title',
-            pageNumber: 201,
-            yearLaunched: 2009,
-        );
-        $book->update(yearLaunched: $payload['yearLaunched']);
     }
 
     /** @test */
@@ -332,7 +282,12 @@ class BookUnitTest extends TestCase
             pageNumber: 201,
             yearLaunched: 2009,
         );
-        $book->update(yearLaunched: $payload['yearLaunched']);
+        $book->update(
+            libraryId: $payload['libraryId'],
+            title: $payload['title'],
+            pageNumber: $payload['pageNumber'],
+            yearLaunched: $payload['yearLaunched'],
+        );
 
         $this->assertEquals($payload['libraryId'], $book->libraryId);
         $this->assertEquals($payload['title'], $book->title);

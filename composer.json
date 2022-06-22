@@ -1,0 +1,22 @@
+{
+    "name": "williamtrevisan/ddd-patterns-php",
+    "description": "Application with PHP to study ddd patterns",
+    "authors": [
+        {
+            "name": "William Trevisan",
+            "email": "williamtrev@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Domain\\": "src/domain/"
+        }
+    },
+    "require": {
+        "ramsey/uuid": "^4.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.5"
+    }
+}

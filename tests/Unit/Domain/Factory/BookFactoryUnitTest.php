@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Domain\Factory;
 
+use Domain\Factory\BookFactory;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 

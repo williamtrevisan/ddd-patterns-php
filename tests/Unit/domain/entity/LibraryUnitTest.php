@@ -3,8 +3,9 @@
 namespace Tests\Unit\Domain\Entity;
 
 use Domain\Entity\Library;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class LibraryUnitTest extends TestCase
 {
@@ -56,6 +57,64 @@ class LibraryUnitTest extends TestCase
     }
 
     /** @test */
+    public function should_be_able_to_create_a_new_library_sendind_an_id()
+    {
+        $payload = [
+            'id' => Uuid::uuid4(),
+            'name' => 'Library name',
+            'email' => 'email@library.com'
+        ];
+
+        $library = new Library(
+            name: $payload['name'],
+            email: $payload['email'],
+            id: $payload['id']
+        );
+
+        $this->assertEquals($payload['id'], $library->id);
+        $this->assertEquals($payload['name'], $library->name);
+        $this->assertEquals($payload['email'], $library->email);
+    }
+
+    /** @test */
+    public function should_be_throw_an_exception_if_name_received_in_update_method_dont_has_at_least_3_characters()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The name must be at least 3 characters');
+
+        $payload = ['name' => 'Li'];
+
+        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library->update(name: $payload['name']);
+    }
+
+    /** @test */
+    public function should_be_throw_an_exception_if_name_received_in_update_is_greater_than_255_characters()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'The name must not be greater than 255 characters'
+        );
+
+        $payload = ['name' => random_bytes(256)];
+
+        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library->update(name: $payload['name']);
+    }
+
+    /** @test */
+    public function should_be_throw_an_excpetion_if_email_received_in_update_is_invalid()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The email must be valid');
+
+        $payload = ['email' => 'email.com'];
+
+        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library->update(email: $payload['email']);
+    }
+
+    /** @test */
     public function should_be_able_to_change_library_name()
     {
         $payload = ['name' => 'Library name updated'];
@@ -78,7 +137,7 @@ class LibraryUnitTest extends TestCase
     }
 
     /** @test */
-    public function should_be_able_to_change_library_datas()
+    public function should_be_able_to_change_library_name_and_email()
     {
         $payload = ['name' => 'Library name updated', 'email' => 'library@email.com'];
 

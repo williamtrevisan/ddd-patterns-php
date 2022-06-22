@@ -2,7 +2,10 @@
 
 namespace Tests\Unit\Domain\Factory;
 
-class CitizenFactoryUnitTest
+use Domain\Factory\CitizenFactory;
+use PHPUnit\Framework\TestCase;
+
+class CitizenFactoryUnitTest extends TestCase
 {
     /** @test */
     public function should_be_able_to_create_a_new_citizen()

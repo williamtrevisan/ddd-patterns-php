@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Domain\Factory;
 
+use Domain\Factory\LibraryFactory;
 use PHPUnit\Framework\TestCase;
 
 class LibraryFactoryUnitTest extends TestCase

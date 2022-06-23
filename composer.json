@@ -9,7 +9,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Domain\\": "src/Domain/"
+            "Domain\\": "src/Domain/",
+            "Infrastructure\\": "src/Infrastructure/"
         }
     },
     "autoload-dev": {

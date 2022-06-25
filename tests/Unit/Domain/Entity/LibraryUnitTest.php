@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\Entity;
+namespace Tests\Domain\Entity;
 
 use Domain\Entity\Library;
 use InvalidArgumentException;
@@ -15,9 +15,17 @@ class LibraryUnitTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The name must be at least 3 characters');
 
-        $payload = ['name' => 'Li', 'email' => 'email@library.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Li',
+            'email' => 'email@library.com',
+        ];
 
-        new Library(name: $payload['name'], email: $payload['email']);
+        new Library(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
     }
 
     /** @test */
@@ -28,9 +36,17 @@ class LibraryUnitTest extends TestCase
             'The name must not be greater than 255 characters'
         );
 
-        $payload = ['name' => random_bytes(256), 'email' => 'email@library.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => random_bytes(256),
+            'email' => 'email@library.com',
+        ];
 
-        new Library(name: $payload['name'], email: $payload['email']);
+        new Library(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
     }
 
     /** @test */
@@ -39,17 +55,33 @@ class LibraryUnitTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The email must be valid');
 
-        $payload = ['name' => 'Library name', 'email' => 'email.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Library name',
+            'email' => 'email.com',
+        ];
 
-        new Library(name: $payload['name'], email: $payload['email']);
+        new Library(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
     }
 
     /** @test */
     public function should_be_able_to_create_a_new_library()
     {
-        $payload = ['name' => 'Library name', 'email' => 'email@library.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Library name',
+            'email' => 'email@library.com',
+        ];
 
-        $library = new Library(name: $payload['name'], email: $payload['email']);
+        $library = new Library(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
 
         $this->assertNotEmpty($library->id);
         $this->assertEquals($payload['name'], $library->name);
@@ -60,15 +92,15 @@ class LibraryUnitTest extends TestCase
     public function should_be_able_to_create_a_new_library_sendind_an_id()
     {
         $payload = [
-            'id' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
             'name' => 'Library name',
-            'email' => 'email@library.com'
+            'email' => 'email@library.com',
         ];
 
         $library = new Library(
+            id: $payload['id'],
             name: $payload['name'],
             email: $payload['email'],
-            id: $payload['id']
         );
 
         $this->assertEquals($payload['id'], $library->id);
@@ -84,7 +116,11 @@ class LibraryUnitTest extends TestCase
 
         $payload = ['name' => 'Li'];
 
-        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library = new Library(
+            id: Uuid::uuid4()->toString(),
+            name: 'Library name',
+            email: 'email@library.com',
+        );
         $library->update(name: $payload['name']);
     }
 
@@ -98,7 +134,11 @@ class LibraryUnitTest extends TestCase
 
         $payload = ['name' => random_bytes(256)];
 
-        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library = new Library(
+            id: Uuid::uuid4()->toString(),
+            name: 'Library name',
+            email: 'email@library.com',
+        );
         $library->update(name: $payload['name']);
     }
 
@@ -110,7 +150,11 @@ class LibraryUnitTest extends TestCase
 
         $payload = ['email' => 'email.com'];
 
-        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library = new Library(
+            id: Uuid::uuid4()->toString(),
+            name: 'Library name',
+            email: 'email@library.com',
+        );
         $library->update(email: $payload['email']);
     }
 
@@ -119,7 +163,11 @@ class LibraryUnitTest extends TestCase
     {
         $payload = ['name' => 'Library name updated'];
 
-        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library = new Library(
+            id: Uuid::uuid4()->toString(),
+            name: 'Library name',
+            email: 'email@library.com',
+        );
         $library->update(name: $payload['name']);
 
         $this->assertEquals($payload['name'], $library->name);
@@ -130,7 +178,11 @@ class LibraryUnitTest extends TestCase
     {
         $payload = ['email' => 'library@email.com'];
 
-        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library = new Library(
+            id: Uuid::uuid4()->toString(),
+            name: 'Library name',
+            email: 'email@library.com',
+        );
         $library->update(email: $payload['email']);
 
         $this->assertEquals($payload['email'], $library->email);
@@ -141,7 +193,11 @@ class LibraryUnitTest extends TestCase
     {
         $payload = ['name' => 'Library name updated', 'email' => 'library@email.com'];
 
-        $library = new Library(name: 'Library name', email: 'email@library.com');
+        $library = new Library(
+            id: Uuid::uuid4()->toString(),
+            name: 'Library name',
+            email: 'email@library.com',
+        );
         $library->update(name: $payload['name'], email: $payload['email']);
 
         $this->assertEquals($payload['name'], $library->name);

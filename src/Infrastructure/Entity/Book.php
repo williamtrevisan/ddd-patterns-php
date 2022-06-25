@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 use Infrastructure\Repository\BookRepository;
-use Ramsey\Uuid\UuidInterface;
 
 #[Entity(repositoryClass: BookRepository::class)]
 #[Table(name: 'books')]
@@ -17,9 +16,9 @@ class Book
     public function __construct(
         #[Id]
         #[Column(type: Types::GUID)]
-        public UuidInterface $id,
+        public string $id,
         #[Column(name: 'id_library', type: Types::GUID)]
-        public UuidInterface $libraryId,
+        public string $libraryId,
         #[Column(type: 'string')]
         public string $title,
         #[Column(name: 'page_number', type: Types::INTEGER)]
@@ -29,7 +28,7 @@ class Book
     ) {
     }
 
-    public function setLibraryId(UuidInterface $libraryId): void
+    public function setLibraryId(string $libraryId): void
     {
         $this->libraryId = $libraryId;
     }

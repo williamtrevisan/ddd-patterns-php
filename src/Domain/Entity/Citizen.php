@@ -5,24 +5,17 @@ declare(strict_types=1);
 namespace Domain\Entity;
 
 use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
-class Citizen
+class Citizen extends Entity
 {
     public function __construct(
+        string $id,
         protected string $name,
         protected string $email,
-        protected ?UuidInterface $id = null,
     ) {
-        $this->id = $id ?? Uuid::uuid4();
+        $this->id = $id;
 
         $this->validate();
-    }
-
-    public function __get(string $property)
-    {
-        return $this->{$property};
     }
 
     public function update(string $name = '', string $email = ''): void

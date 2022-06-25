@@ -52,11 +52,11 @@ class BookRepository extends EntityRepository implements BookRepositoryInterface
     private function toDomainEntity(object $object): Entity
     {
         return new Book(
+            id: $object->id,
             libraryId: $object->libraryId,
             title: $object->title,
             pageNumber: $object->pageNumber,
             yearLaunched: $object->yearLaunched,
-            id: $object->id,
         );
     }
 

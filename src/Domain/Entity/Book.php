@@ -5,27 +5,25 @@ declare(strict_types=1);
 namespace Domain\Entity;
 
 use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 class Book extends Entity
 {
     protected array $authorsId;
 
     public function __construct(
-        protected ?UuidInterface $libraryId,
+        string $id,
+        protected ?string $libraryId,
         protected string $title,
         protected ?int $pageNumber,
         protected ?int $yearLaunched,
-        ?UuidInterface $id = null,
     ) {
-        $this->id = $id ?? Uuid::uuid4();
+        $this->id = $id;
 
         $this->validate();
     }
 
     public function update(
-        ?UuidInterface $libraryId = null,
+        ?string $libraryId = null,
         string $title = '',
         ?int $pageNumber = null,
         ?int $yearLaunched = null

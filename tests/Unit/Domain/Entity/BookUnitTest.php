@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\Entity;
+namespace Tests\Domain\Entity;
 
 use Domain\Entity\Book;
 use InvalidArgumentException;
@@ -16,6 +16,7 @@ class BookUnitTest extends TestCase
         $this->expectExceptionMessage('The library id is required');
 
         $payload = [
+            'id' => Uuid::uuid4()->toString(),
             'libraryId' => null,
             'title' => 'Book title',
             'pageNumber' => 196,
@@ -23,6 +24,7 @@ class BookUnitTest extends TestCase
         ];
 
         new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
@@ -37,13 +39,15 @@ class BookUnitTest extends TestCase
         $this->expectExceptionMessage('The title must be at least 3 characters');
 
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Bo',
             'pageNumber' => 196,
             'yearLaunched' => 2001,
         ];
 
         new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
@@ -60,13 +64,15 @@ class BookUnitTest extends TestCase
         );
 
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => random_bytes(256),
             'pageNumber' => 196,
             'yearLaunched' => 2001,
         ];
 
         new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
@@ -81,13 +87,15 @@ class BookUnitTest extends TestCase
         $this->expectExceptionMessage('The page number is required');
 
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Book title',
             'pageNumber' => null,
             'yearLaunched' => 2001,
         ];
 
         new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
@@ -102,13 +110,15 @@ class BookUnitTest extends TestCase
         $this->expectExceptionMessage('The year launched is required');
 
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Book title',
             'pageNumber' => 196,
             'yearLaunched' => null,
         ];
 
         new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
@@ -120,13 +130,15 @@ class BookUnitTest extends TestCase
     public function should_be_able_to_create_a_new_book()
     {
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Book title',
             'pageNumber' => 196,
             'yearLaunched' => 2001,
         ];
 
         $book = new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
@@ -144,19 +156,19 @@ class BookUnitTest extends TestCase
     public function should_be_able_to_create_a_new_book_sending_an_id()
     {
         $payload = [
-            'id' => Uuid::uuid4(),
-            'libraryId' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Book title',
             'pageNumber' => 196,
             'yearLaunched' => 2001,
         ];
 
         $book = new Book(
+            id: $payload['id'],
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
             yearLaunched: $payload['yearLaunched'],
-            id: $payload['id'],
         );
 
         $this->assertEquals($payload['id'], $book->id);
@@ -171,7 +183,8 @@ class BookUnitTest extends TestCase
     {
         $authorId = Uuid::uuid4()->toString();
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -189,7 +202,8 @@ class BookUnitTest extends TestCase
         $authorId1 = Uuid::uuid4()->toString();
         $authorId2 = Uuid::uuid4()->toString();
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -207,7 +221,8 @@ class BookUnitTest extends TestCase
     {
         $authorId = Uuid::uuid4()->toString();
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -223,10 +238,11 @@ class BookUnitTest extends TestCase
     /** @test */
     public function should_be_able_to_update_a_book_library_id()
     {
-        $payload = ['libraryId' => Uuid::uuid4()];
+        $payload = ['libraryId' => Uuid::uuid4()->toString()];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -245,7 +261,8 @@ class BookUnitTest extends TestCase
         $payload = ['title' => 'Bo'];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -264,7 +281,8 @@ class BookUnitTest extends TestCase
         $payload = ['title' => random_bytes(256)];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -278,7 +296,8 @@ class BookUnitTest extends TestCase
         $payload = ['title' => 'Book title updated'];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -294,7 +313,8 @@ class BookUnitTest extends TestCase
         $payload = ['pageNumber' => 251];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -310,7 +330,8 @@ class BookUnitTest extends TestCase
         $payload = ['yearLaunched' => 2010];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,
@@ -324,14 +345,15 @@ class BookUnitTest extends TestCase
     public function should_be_able_to_update_all_book_data()
     {
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Book title updated',
             'pageNumber' => 251,
             'yearLaunched' => 2010
         ];
 
         $book = new Book(
-            libraryId: Uuid::uuid4(),
+            id: Uuid::uuid4()->toString(),
+            libraryId: Uuid::uuid4()->toString(),
             title: 'Book title',
             pageNumber: 201,
             yearLaunched: 2009,

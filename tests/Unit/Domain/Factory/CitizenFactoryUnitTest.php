@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\Factory;
+namespace Tests\Domain\Factory;
 
 use Domain\Factory\CitizenFactory;
 use PHPUnit\Framework\TestCase;

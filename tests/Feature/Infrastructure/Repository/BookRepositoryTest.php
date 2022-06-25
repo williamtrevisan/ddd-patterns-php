@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Infrastructure\Repository;
+namespace Tests\Infrastructure\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;

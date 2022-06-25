@@ -5,16 +5,14 @@ declare(strict_types=1);
 namespace Domain\Entity;
 
 use InvalidArgumentException;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 class Author extends Entity
 {
     public function __construct(
+        string $id,
         protected string $name,
-        ?UuidInterface $id = null,
     ) {
-        $this->id = $id ?? Uuid::uuid4();
+        $this->id = $id;
 
         $this->validate();
     }

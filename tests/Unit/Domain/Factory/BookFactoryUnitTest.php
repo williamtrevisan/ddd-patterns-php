@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\Factory;
+namespace Tests\Domain\Factory;
 
 use Domain\Factory\BookFactory;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +12,7 @@ class BookFactoryUnitTest extends TestCase
     public function should_be_able_to_create_a_new_book()
     {
         $payload = [
-            'libraryId' => Uuid::uuid4(),
+            'libraryId' => Uuid::uuid4()->toString(),
             'title' => 'Book title',
             'pageNumber' => 200,
             'yearLaunched' => 2001

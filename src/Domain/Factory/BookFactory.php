@@ -10,11 +10,11 @@ class BookFactory
     public static function create(array $payload): Book
     {
         return new Book(
+            id: Uuid::uuid4()->toString(),
             libraryId: $payload['libraryId'],
             title: $payload['title'],
             pageNumber: $payload['pageNumber'],
             yearLaunched: $payload['yearLaunched'],
-            id: Uuid::uuid4()
         );
     }
 }

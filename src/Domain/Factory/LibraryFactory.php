@@ -10,9 +10,9 @@ class LibraryFactory
     public static function create(array $payload): Library
     {
         return new Library(
+            id: Uuid::uuid4()->toString(),
             name: $payload['name'],
             email: $payload['email'],
-            id: Uuid::uuid4()
         );
     }
 }

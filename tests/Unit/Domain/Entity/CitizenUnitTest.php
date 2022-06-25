@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Domain\Entity;
+namespace Tests\Domain\Entity;
 
 use Domain\Entity\Citizen;
 use InvalidArgumentException;
@@ -15,9 +15,17 @@ class CitizenUnitTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The name must be at least 3 characters');
 
-        $payload = ['name' => 'Ci', 'email' => 'email@citizen.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Ci',
+            'email' => 'email@citizen.com',
+        ];
 
-        new Citizen(name: $payload['name'], email: $payload['email']);
+        new Citizen(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
     }
 
     /** @test */
@@ -28,9 +36,17 @@ class CitizenUnitTest extends TestCase
             'The name must not be greater than 255 characters'
         );
 
-        $payload = ['name' => random_bytes(256), 'email' => 'email@citizen.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => random_bytes(256),
+            'email' => 'email@citizen.com',
+        ];
 
-        new Citizen(name: $payload['name'], email: $payload['email']);
+        new Citizen(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
     }
 
     /** @test */
@@ -39,19 +55,35 @@ class CitizenUnitTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The email must be valid');
 
-        $payload = ['name' => 'Citizen name', 'email' => 'email.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Citizen name',
+            'email' => 'email.com',
+        ];
 
-        new Citizen(name: $payload['name'], email: $payload['email']);
+        new Citizen(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
     }
 
     /** @test */
     public function should_be_able_to_create_a_new_citizen()
     {
-        $payload = ['name' => 'Citizen name', 'email' => 'email@citizen.com'];
+        $payload = [
+            'id' => Uuid::uuid4()->toString(),
+            'name' => 'Citizen name',
+            'email' => 'email@citizen.com',
+        ];
 
-        $citizen = new Citizen(name: $payload['name'], email: $payload['email']);
+        $citizen = new Citizen(
+            id: $payload['id'],
+            name: $payload['name'],
+            email: $payload['email'],
+        );
 
-        $this->assertNotEmpty($citizen->id);
+        $this->assertEquals($payload['id'], $citizen->id);
         $this->assertEquals($payload['name'], $citizen->name);
         $this->assertEquals($payload['email'], $citizen->email);
     }
@@ -60,15 +92,15 @@ class CitizenUnitTest extends TestCase
     public function should_be_able_to_create_a_new_citizen_sendind_an_id()
     {
         $payload = [
-            'id' => Uuid::uuid4(),
+            'id' => Uuid::uuid4()->toString(),
             'name' => 'Citizen name',
-            'email' => 'email@citizen.com'
+            'email' => 'email@citizen.com',
         ];
 
         $citizen = new Citizen(
+            id: $payload['id'],
             name: $payload['name'],
             email: $payload['email'],
-            id: $payload['id']
         );
 
         $this->assertEquals($payload['id'], $citizen->id);
@@ -84,7 +116,11 @@ class CitizenUnitTest extends TestCase
 
         $payload = ['name' => 'Ci'];
 
-        $citizen = new Citizen(name: 'Citizen name', email: 'email@citizen.com');
+        $citizen = new Citizen(
+            id: Uuid::uuid4()->toString(),
+            name: 'Citizen name',
+            email: 'email@citizen.com',
+        );
         $citizen->update(name: $payload['name']);
     }
 
@@ -98,7 +134,11 @@ class CitizenUnitTest extends TestCase
 
         $payload = ['name' => random_bytes(256)];
 
-        $citizen = new Citizen(name: 'Citizen name', email: 'email@citizen.com');
+        $citizen = new Citizen(
+            id: Uuid::uuid4()->toString(),
+            name: 'Citizen name',
+            email: 'email@citizen.com',
+        );
         $citizen->update(name: $payload['name']);
     }
 
@@ -110,7 +150,11 @@ class CitizenUnitTest extends TestCase
 
         $payload = ['email' => 'email.com'];
 
-        $citizen = new Citizen(name: 'Citizen name', email: 'email@citizen.com');
+        $citizen = new Citizen(
+            id: Uuid::uuid4()->toString(),
+            name: 'Citizen name',
+            email: 'email@citizen.com',
+        );
         $citizen->update(email: $payload['email']);
     }
 
@@ -119,7 +163,11 @@ class CitizenUnitTest extends TestCase
     {
         $payload = ['name' => 'Citizen name updated'];
 
-        $citizen = new Citizen(name: 'Citizen name', email: 'email@citizen.com');
+        $citizen = new Citizen(
+            id: Uuid::uuid4()->toString(),
+            name: 'Citizen name',
+            email: 'email@citizen.com',
+        );
         $citizen->update(name: $payload['name']);
 
         $this->assertEquals($payload['name'], $citizen->name);
@@ -130,7 +178,11 @@ class CitizenUnitTest extends TestCase
     {
         $payload = ['email' => 'citizen@email.com'];
 
-        $citizen = new Citizen(name: 'Citizen name', email: 'email@citizen.com');
+        $citizen = new Citizen(
+            id: Uuid::uuid4()->toString(),
+            name: 'Citizen name',
+            email: 'email@citizen.com',
+        );
         $citizen->update(email: $payload['email']);
 
         $this->assertEquals($payload['email'], $citizen->email);
@@ -141,7 +193,11 @@ class CitizenUnitTest extends TestCase
     {
         $payload = ['name' => 'Citizen name updated', 'email' => 'citizen@email.com'];
 
-        $citizen = new Citizen(name: 'Citizen name', email: 'email@citizen.com');
+        $citizen = new Citizen(
+            id: Uuid::uuid4()->toString(),
+            name: 'Citizen name',
+            email: 'email@citizen.com',
+        );
         $citizen->update(name: $payload['name'], email: $payload['email']);
 
         $this->assertEquals($payload['name'], $citizen->name);

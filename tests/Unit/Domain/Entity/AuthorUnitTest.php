@@ -17,9 +17,9 @@ class AuthorUnitTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The name must be at least 3 characters');
 
-        $payload = ['name' => 'Ci'];
+        $payload = ['id' => Uuid::uuid4()->toString(), 'name' => 'Ci'];
 
-        new Author(name: $payload['name']);
+        new Author(id: $payload['id'], name: $payload['name']);
     }
 
     /** @test */
@@ -30,34 +30,17 @@ class AuthorUnitTest extends TestCase
             'The name must not be greater than 255 characters'
         );
 
-        $payload = ['name' => random_bytes(256)];
+        $payload = ['id' => Uuid::uuid4()->toString(), 'name' => random_bytes(256)];
 
-        new Author(name: $payload['name']);
+        new Author(id: $payload['id'], name: $payload['name']);
     }
 
     /** @test */
     public function should_be_able_to_create_a_new_author()
     {
-        $payload = ['name' => 'Author name'];
+        $payload = ['id' => Uuid::uuid4()->toString(), 'name' => 'Author name'];
 
-        $author = new Author(name: $payload['name']);
-
-        $this->assertNotEmpty($author->id);
-        $this->assertEquals($payload['name'], $author->name);
-    }
-
-    /** @test */
-    public function should_be_able_to_create_a_new_author_sendind_an_id()
-    {
-        $payload = [
-            'id' => Uuid::uuid4(),
-            'name' => 'Author name'
-        ];
-
-        $author = new Author(
-            name: $payload['name'],
-            id: $payload['id']
-        );
+        $author = new Author(id: $payload['id'], name: $payload['name']);
 
         $this->assertEquals($payload['id'], $author->id);
         $this->assertEquals($payload['name'], $author->name);
@@ -71,7 +54,7 @@ class AuthorUnitTest extends TestCase
 
         $payload = ['name' => 'Ci'];
 
-        $author = new Author(name: 'Author name');
+        $author = new Author(id: Uuid::uuid4()->toString(), name: 'Author name');
         $author->changeName(name: $payload['name']);
     }
 
@@ -85,7 +68,7 @@ class AuthorUnitTest extends TestCase
 
         $payload = ['name' => random_bytes(256)];
 
-        $author = new Author(name: 'Author name');
+        $author = new Author(id: Uuid::uuid4()->toString(), name: 'Author name');
         $author->changeName(name: $payload['name']);
     }
 
@@ -94,7 +77,7 @@ class AuthorUnitTest extends TestCase
     {
         $payload = ['name' => 'Author name updated'];
 
-        $author = new Author(name: 'Author name');
+        $author = new Author(id: Uuid::uuid4()->toString(), name: 'Author name');
         $author->changeName(name: $payload['name']);
 
         $this->assertEquals($payload['name'], $author->name);

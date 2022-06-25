@@ -10,6 +10,8 @@ use Ramsey\Uuid\UuidInterface;
 
 class Book extends Entity
 {
+    protected array $authorsId;
+
     public function __construct(
         protected ?UuidInterface $libraryId,
         protected string $title,
@@ -34,6 +36,18 @@ class Book extends Entity
         $this->yearLaunched = $yearLaunched ?? $this->yearLaunched;
 
         $this->validate();
+    }
+
+    public function addAuthor(string $authorId): void
+    {
+        $this->authorsId[] = $authorId;
+    }
+
+    public function removeAuthor(string $authorId): void
+    {
+        $authorIdKey = array_search($authorId, $this->authorsId);
+
+        unset($this->authorsId[$authorIdKey]);
     }
 
     private function validate(): void

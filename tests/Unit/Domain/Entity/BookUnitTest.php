@@ -179,8 +179,8 @@ class BookUnitTest extends TestCase
 
         $book->addAuthor(authorId: $authorId);
 
-        $this->assertCount(1, $this->authorsId);
-        $this->assertEquals([$authorId], $this->authorsId);
+        $this->assertCount(1, $book->authorsId);
+        $this->assertEquals([$authorId], $book->authorsId);
     }
 
     /** @test */
@@ -198,8 +198,8 @@ class BookUnitTest extends TestCase
         $book->addAuthor(authorId: $authorId1);
         $book->addAuthor(authorId: $authorId2);
 
-        $this->assertCount(2, $this->authorsId);
-        $this->assertEquals([$authorId1, $authorId2], $this->authorsId);
+        $this->assertCount(2, $book->authorsId);
+        $this->assertEquals([$authorId1, $authorId2], $book->authorsId);
     }
 
     /** @test */
@@ -216,8 +216,8 @@ class BookUnitTest extends TestCase
 
         $book->removeAuthor(authorId: $authorId);
 
-        $this->assertCount(0, $this->authorsId);
-        $this->assertEquals([], $this->authorsId);
+        $this->assertCount(0, $book->authorsId);
+        $this->assertEquals([], $book->authorsId);
     }
 
     /** @test */

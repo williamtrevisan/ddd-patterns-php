@@ -2,4 +2,6 @@
 
 namespace Domain\Repository;
 
-interface BookRepositoryInterface extends RepositoryInterface {}
+interface BookRepositoryInterface extends RepositoryInterface
+{
+}

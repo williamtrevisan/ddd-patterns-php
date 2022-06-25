@@ -20,7 +20,9 @@ class BookRepository extends EntityRepository implements BookRepositoryInterface
     public function findByPk(string $id): Entity
     {
         $book = $this->find($id);
-        if (! $book) throw new Exception("Book with id: $id not found");
+        if (! $book) {
+            throw new Exception("Book with id: $id not found");
+        }
 
         return $this->toDomainEntity($book);
     }
@@ -29,13 +31,15 @@ class BookRepository extends EntityRepository implements BookRepositoryInterface
     {
         $books = parent::findAll();
 
-        return array_map(fn($book) => $this->toDomainEntity($book), $books);
+        return array_map(fn ($book) => $this->toDomainEntity($book), $books);
     }
 
     public function update(Entity $entity): void
     {
         $book = $this->find($entity->id);
-        if (! $book) throw new Exception("Book with id: $entity->id not found");
+        if (! $book) {
+            throw new Exception("Book with id: $entity->id not found");
+        }
 
         $book->setLibraryId($entity->libraryId);
         $book->setTitle($entity->title);

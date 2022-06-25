@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Domain\Entity;
+namespace Tests\Unit\Domain\Entity;
 
 use Domain\Entity\Book;
 use InvalidArgumentException;

@@ -10,7 +10,9 @@ class BookService
         array $listBooks,
         UuidInterface $libraryId
     ): array {
-        foreach ($listBooks as $book) $book->update(libraryId: $libraryId);
+        foreach ($listBooks as $book) {
+            $book->update(libraryId: $libraryId);
+        }
 
         return $listBooks;
     }

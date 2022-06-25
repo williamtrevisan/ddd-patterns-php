@@ -6,18 +6,23 @@ use InvalidArgumentException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Book extends Entity
+class Book
 {
     public function __construct(
         protected ?UuidInterface $libraryId,
         protected string $title,
         protected ?int $pageNumber,
         protected ?int $yearLaunched,
-        ?UuidInterface $id = null,
+        protected ?UuidInterface $id = null,
     ) {
         $this->id = $id ?? Uuid::uuid4();
 
         $this->validate();
+    }
+
+    public function __get(string $property)
+    {
+        return $this->{$property};
     }
 
     public function update(

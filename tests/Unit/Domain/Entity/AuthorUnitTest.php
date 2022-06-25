@@ -64,7 +64,7 @@ class AuthorUnitTest extends TestCase
     }
 
     /** @test */
-    public function should_be_throw_an_exception_if_name_received_in_update_method_dont_has_at_least_3_characters()
+    public function should_be_throw_an_exception_if_name_received_in_change_name_method_dont_has_at_least_3_characters()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The name must be at least 3 characters');
@@ -72,11 +72,11 @@ class AuthorUnitTest extends TestCase
         $payload = ['name' => 'Ci'];
 
         $author = new Author(name: 'Author name');
-        $author->update(name: $payload['name']);
+        $author->changeName(name: $payload['name']);
     }
 
     /** @test */
-    public function should_be_throw_an_exception_if_name_received_in_update_is_greater_than_255_characters()
+    public function should_be_throw_an_exception_if_name_received_in_change_name_is_greater_than_255_characters()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
@@ -86,7 +86,7 @@ class AuthorUnitTest extends TestCase
         $payload = ['name' => random_bytes(256)];
 
         $author = new Author(name: 'Author name');
-        $author->update(name: $payload['name']);
+        $author->changeName(name: $payload['name']);
     }
 
     /** @test */
@@ -95,7 +95,7 @@ class AuthorUnitTest extends TestCase
         $payload = ['name' => 'Author name updated'];
 
         $author = new Author(name: 'Author name');
-        $author->update(name: $payload['name']);
+        $author->changeName(name: $payload['name']);
 
         $this->assertEquals($payload['name'], $author->name);
     }

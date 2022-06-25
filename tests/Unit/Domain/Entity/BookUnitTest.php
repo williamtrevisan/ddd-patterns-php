@@ -167,6 +167,60 @@ class BookUnitTest extends TestCase
     }
 
     /** @test */
+    public function should_be_able_to_add_an_author_to_book()
+    {
+        $authorId = Uuid::uuid4()->toString();
+        $book = new Book(
+            libraryId: Uuid::uuid4(),
+            title: 'Book title',
+            pageNumber: 201,
+            yearLaunched: 2009,
+        );
+
+        $book->addAuthor(authorId: $authorId);
+
+        $this->assertCount(1, $this->authorsId);
+        $this->assertEquals([$authorId], $this->authorsId);
+    }
+
+    /** @test */
+    public function should_be_able_to_add_more_than_once_authors_to_book()
+    {
+        $authorId1 = Uuid::uuid4()->toString();
+        $authorId2 = Uuid::uuid4()->toString();
+        $book = new Book(
+            libraryId: Uuid::uuid4(),
+            title: 'Book title',
+            pageNumber: 201,
+            yearLaunched: 2009,
+        );
+
+        $book->addAuthor(authorId: $authorId1);
+        $book->addAuthor(authorId: $authorId2);
+
+        $this->assertCount(2, $this->authorsId);
+        $this->assertEquals([$authorId1, $authorId2], $this->authorsId);
+    }
+
+    /** @test */
+    public function should_be_able_to_remove_an_author_to_book()
+    {
+        $authorId = Uuid::uuid4()->toString();
+        $book = new Book(
+            libraryId: Uuid::uuid4(),
+            title: 'Book title',
+            pageNumber: 201,
+            yearLaunched: 2009,
+        );
+        $book->addAuthor(authorId: $authorId);
+
+        $book->removeAuthor(authorId: $authorId);
+
+        $this->assertCount(0, $this->authorsId);
+        $this->assertEquals([], $this->authorsId);
+    }
+
+    /** @test */
     public function should_be_able_to_update_a_book_library_id()
     {
         $payload = ['libraryId' => Uuid::uuid4()];

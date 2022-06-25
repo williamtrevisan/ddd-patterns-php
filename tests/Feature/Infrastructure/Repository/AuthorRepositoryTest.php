@@ -108,7 +108,7 @@ class AuthorRepositoryTest extends TestCase
         $this->entityManager->persist($this->toInfrastructureEntity($expectedAuthor));
         $this->entityManager->flush();
         $payload = ['name' => 'Author name updated'];
-        $expectedAuthor->update(name: $payload['name']);
+        $expectedAuthor->changeName(name: $payload['name']);
 
         $this->authorRepository->update($expectedAuthor);
         $actualAuthor = $this->entityManager->find(Author::class, $expectedAuthor->id);

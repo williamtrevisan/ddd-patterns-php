@@ -139,6 +139,10 @@ class BookRepositoryTest extends TestCase
         $this->assertEquals($expectedBook1->title, $actualBook[0]->title);
         $this->assertEquals($expectedBook1->pageNumber, $actualBook[0]->pageNumber);
         $this->assertEquals($expectedBook1->yearLaunched, $actualBook[0]->yearLaunched);
+        $this->assertEquals($expectedBook2->id, $actualBook[1]->id);
+        $this->assertEquals($expectedBook2->libraryId, $actualBook[1]->libraryId);
+        $this->assertEquals($expectedBook2->title, $actualBook[1]->title);
+        $this->assertEquals($expectedBook2->pageNumber, $actualBook[1]->pageNumber);
         $this->assertEquals($expectedBook2->yearLaunched, $actualBook[1]->yearLaunched);
     }
 

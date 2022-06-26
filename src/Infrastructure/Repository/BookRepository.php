@@ -7,14 +7,31 @@ use Domain\Entity\Book;
 use Domain\Entity\Entity;
 use Domain\Repository\BookRepositoryInterface;
 use Exception;
+use Infrastructure\Entity\Author;
 use Infrastructure\Entity\Book as InfrastructureBook;
 
 class BookRepository extends EntityRepository implements BookRepositoryInterface
 {
     public function create(Entity $entity): void
     {
-        $this->getEntityManager()->persist($this->toInfrastructureEntity($entity));
+        $book = $this->toInfrastructureEntity($entity);
+
+        if ($entity->authorsId) {
+            $this->joinAuthors($entity, $book);
+        }
+
+        $this->getEntityManager()->persist($book);
         $this->getEntityManager()->flush();
+    }
+
+    private function joinAuthors(Entity $entity, InfrastructureBook $book): void
+    {
+        foreach ($entity->authorsId as $authorId) {
+            $authorRepository = $this->getEntityManager()->getRepository(Author::class);
+            $author = $authorRepository->find($authorId);
+
+            $book->joinAuthors($author);
+        }
     }
 
     public function findByPk(string $id): Entity

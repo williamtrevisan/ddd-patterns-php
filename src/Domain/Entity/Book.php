@@ -8,7 +8,7 @@ use InvalidArgumentException;
 
 class Book extends Entity
 {
-    protected array $authorsId;
+    protected array $authorsId = [];
 
     public function __construct(
         string $id,

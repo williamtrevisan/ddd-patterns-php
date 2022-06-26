@@ -7,11 +7,15 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\SchemaTool;
 use Domain\Entity\Entity;
+use Domain\Factory\AuthorFactory;
 use Domain\Factory\BookFactory;
 use Domain\Factory\LibraryFactory;
 use Exception;
+use Infrastructure\Entity\Author;
 use Infrastructure\Entity\Book;
+use phpDocumentor\Reflection\Types\Array_;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class BookRepositoryTest extends TestCase
 {
@@ -36,7 +40,8 @@ class BookRepositoryTest extends TestCase
 
         $this->schemaTool = new SchemaTool($this->entityManager);
         $this->schemaTool->createSchema([
-            $this->entityManager->getClassMetadata(Book::class)
+            $this->entityManager->getClassMetadata(Book::class),
+            $this->entityManager->getClassMetadata(Author::class)
         ]);
 
         $this->bookRepository = $this->entityManager->getRepository(Book::class);
@@ -45,7 +50,8 @@ class BookRepositoryTest extends TestCase
     protected function tearDown(): void
     {
         $this->schemaTool->dropSchema([
-            $this->entityManager->getClassMetadata(Book::class)
+            $this->entityManager->getClassMetadata(Book::class),
+            $this->entityManager->getClassMetadata(Author::class)
         ]);
 
         parent::tearDown();
@@ -73,6 +79,71 @@ class BookRepositoryTest extends TestCase
         $this->assertEquals($expectedBook->title, $actualBook->title);
         $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
         $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
+    }
+
+    /** @test */
+    public function should_be_able_to_create_a_new_book_and_add_an_author()
+    {
+        $library = LibraryFactory::create([
+            'name' => 'Library name',
+            'email' => 'email@email.com'
+        ]);
+        $expectedBook = BookFactory::create([
+            'libraryId' => $library->id,
+            'title' => 'Book title',
+            'pageNumber' => 201,
+            'yearLaunched' => 2010,
+        ]);
+        $author = AuthorFactory::create(['name' => 'Author name']);
+        $this->entityManager->getRepository(Author::class)->create($author);
+        $expectedBook->addAuthor(authorId: $author->id);
+
+        $this->bookRepository->create($expectedBook);
+        $actualBook = $this->entityManager->find(Book::class, $expectedBook->id);
+
+        $this->assertNotEmpty($actualBook->id);
+        $this->assertEquals($expectedBook->libraryId, $actualBook->libraryId);
+        $this->assertEquals($expectedBook->title, $actualBook->title);
+        $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
+        $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
+        $this->assertCount(1, $actualBook->authors());
+        $this->assertEquals($author->id, $actualBook->authors()[0]->id);
+        $this->assertEquals($author->name, $actualBook->authors()[0]->name);
+    }
+
+    /** @test */
+    public function should_be_able_to_create_a_new_book_and_add_more_than_once_author()
+    {
+        $library = LibraryFactory::create([
+            'name' => 'Library name',
+            'email' => 'email@email.com'
+        ]);
+        $expectedBook = BookFactory::create([
+            'libraryId' => $library->id,
+            'title' => 'Book title',
+            'pageNumber' => 201,
+            'yearLaunched' => 2010,
+        ]);
+        $author1 = AuthorFactory::create(['name' => 'Author1 name']);
+        $this->entityManager->getRepository(Author::class)->create($author1);
+        $author2 = AuthorFactory::create(['name' => 'Author2 name']);
+        $this->entityManager->getRepository(Author::class)->create($author2);
+        $expectedBook->addAuthor(authorId: $author1->id);
+        $expectedBook->addAuthor(authorId: $author2->id);
+
+        $this->bookRepository->create($expectedBook);
+        $actualBook = $this->entityManager->find(Book::class, $expectedBook->id);
+
+        $this->assertNotEmpty($actualBook->id);
+        $this->assertEquals($expectedBook->libraryId, $actualBook->libraryId);
+        $this->assertEquals($expectedBook->title, $actualBook->title);
+        $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
+        $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
+        $this->assertCount(2, $actualBook->authors());
+        $this->assertEquals($author1->id, $actualBook->authors()[0]->id);
+        $this->assertEquals($author1->name, $actualBook->authors()[0]->name);
+        $this->assertEquals($author2->id, $actualBook->authors()[1]->id);
+        $this->assertEquals($author2->name, $actualBook->authors()[1]->name);
     }
 
     /** @test */

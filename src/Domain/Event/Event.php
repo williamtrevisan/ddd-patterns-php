@@ -8,6 +8,11 @@ use DateTime;
 
 abstract class Event
 {
-    public mixed $eventData;
     public DateTime $dateTimeOccurred;
+
+    public function __construct(
+        public mixed $eventData,
+    ) {
+        $this->dateTimeOccurred = new DateTime();
+    }
 }

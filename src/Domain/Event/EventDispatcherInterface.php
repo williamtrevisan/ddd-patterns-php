@@ -15,5 +15,5 @@ interface EventDispatcherInterface
         EventHandlerInterface $eventHandler
     ): void;
     public function unregisterAll(): void;
-    public function notifier(Event $event): void;
+    public function notify(Event $event): void;
 }

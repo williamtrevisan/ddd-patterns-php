@@ -21,7 +21,14 @@ class EventDispatcher implements EventDispatcherInterface
         string $eventName,
         EventHandlerInterface $eventHandler
     ): void {
-        unset($this->eventHandlers[$eventName]);
+        if (! array_key_exists($eventName, $this->eventHandlers)) {
+            return;
+        }
+
+        $eventHandlerKey = array_search($eventHandler, $this->eventHandlers[$eventName]);
+        if ($eventHandlerKey !== false) {
+            unset($this->eventHandlers[$eventName][$eventHandlerKey]);
+        }
     }
 
     public function unregisterAll(): void

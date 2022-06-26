@@ -39,11 +39,11 @@ class EventDispatcherUnitTest extends TestCase
 
         $eventDispatcher->unregister('CitizenCreatedEvent', $eventHandler);
 
-        $this->assertArrayNotHasKey(
+        $this->assertArrayHasKey(
             'CitizenCreatedEvent',
             $eventDispatcher->eventHandlers()
         );
-        $this->assertEmpty($eventDispatcher->eventHandlers());
+        $this->assertEmpty($eventDispatcher->eventHandlers()['CitizenCreatedEvent']);
     }
 
     /** @test */

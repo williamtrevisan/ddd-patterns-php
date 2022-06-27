@@ -38,7 +38,9 @@ class EventDispatcher implements EventDispatcherInterface
 
     public function notify(Event $event): void
     {
-        $eventName = get_class($event);
+        $class = get_class($event);
+        $classExploded = explode('\\', $class);
+        $eventName = end($classExploded);
 
         if (! array_key_exists($eventName, $this->eventHandlers)) {
             return;

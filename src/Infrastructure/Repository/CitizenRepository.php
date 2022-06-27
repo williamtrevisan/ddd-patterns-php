@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Repository;
 
 use Doctrine\ORM\EntityRepository;

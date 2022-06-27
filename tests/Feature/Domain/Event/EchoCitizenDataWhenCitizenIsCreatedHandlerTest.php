@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\Event;
+namespace Tests\Domain\Event;
 
+use Domain\Event\CitizenCreatedEvent;
+use Domain\Event\EchoCitizenDataWhenCitizenIsCreatedHandler;
+use Domain\Event\EventDispatcher;
 use Domain\Factory\CitizenFactory;
 use PHPUnit\Framework\TestCase;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Event;
+namespace Tests\Domain\Event;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;

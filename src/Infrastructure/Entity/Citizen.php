@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Infrastructure\Entity;
 
 use Doctrine\DBAL\Types\Types;

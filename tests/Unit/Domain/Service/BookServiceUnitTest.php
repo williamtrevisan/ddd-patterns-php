@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Domain\Service;
 
 use Domain\Entity\Book;

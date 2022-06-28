@@ -63,9 +63,9 @@ class LibraryRepositoryTest extends TestCase
         $this->libraryRepository->create($expectedLibrary);
         $actualLibrary = $this->entityManager->find(Library::class, $expectedLibrary->id);
 
-        $this->assertNotEmpty($actualLibrary->id);
-        $this->assertEquals($expectedLibrary->name, $actualLibrary->name);
-        $this->assertEquals($expectedLibrary->email, $actualLibrary->email);
+        $this->assertNotEmpty($actualLibrary->getId());
+        $this->assertEquals($expectedLibrary->name, $actualLibrary->getName());
+        $this->assertEquals($expectedLibrary->email, $actualLibrary->getEmail());
     }
 
     /** @test */
@@ -134,9 +134,9 @@ class LibraryRepositoryTest extends TestCase
         $this->libraryRepository->update($expectedLibrary);
         $actualLibrary = $this->entityManager->find(Library::class, $expectedLibrary->id);
 
-        $this->assertEquals($expectedLibrary->id, $actualLibrary->id);
-        $this->assertEquals($payload['name'], $actualLibrary->name);
-        $this->assertEquals($expectedLibrary->email, $actualLibrary->email);
+        $this->assertEquals($expectedLibrary->id, $actualLibrary->getId());
+        $this->assertEquals($payload['name'], $actualLibrary->getName());
+        $this->assertEquals($expectedLibrary->email, $actualLibrary->getEmail());
     }
 
     private function toInfrastructureEntity(Entity $entity): Library

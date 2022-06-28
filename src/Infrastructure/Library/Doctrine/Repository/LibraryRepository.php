@@ -52,9 +52,9 @@ class LibraryRepository extends EntityRepository implements LibraryRepositoryInt
     private function toDomainEntity(object $object): Entity
     {
         return new DomainLibrary(
-            id: $object->id,
-            name: $object->name,
-            email: $object->email,
+            id: $object->getId(),
+            name: $object->getName(),
+            email: $object->getEmail(),
         );
     }
 

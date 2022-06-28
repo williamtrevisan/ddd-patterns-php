@@ -18,17 +18,32 @@ class Library
     public function __construct(
         #[Id]
         #[Column(type: Types::GUID)]
-        public string $id,
+        private string $id,
         #[Column(type: 'string')]
-        public string $name,
+        private string $name,
         #[Column(type: 'string')]
-        public string $email,
+        private string $email,
     ) {
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
     }
 
     public function setEmail(string $email): void

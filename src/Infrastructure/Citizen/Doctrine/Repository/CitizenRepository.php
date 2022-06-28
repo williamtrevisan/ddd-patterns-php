@@ -52,9 +52,9 @@ class CitizenRepository extends EntityRepository implements CitizenRepositoryInt
     private function toDomainEntity(object $object): Entity
     {
         return new DomainCitizen(
-            id: $object->id,
-            name: $object->name,
-            email: $object->email,
+            id: $object->getId(),
+            name: $object->getName(),
+            email: $object->getEmail(),
         );
     }
 

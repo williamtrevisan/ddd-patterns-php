@@ -63,9 +63,9 @@ class CitizenRepositoryTest extends TestCase
         $this->citizenRepository->create($expectedCitizen);
         $actualCitizen = $this->entityManager->find(Citizen::class, $expectedCitizen->id);
 
-        $this->assertNotEmpty($actualCitizen->id);
-        $this->assertEquals($expectedCitizen->name, $actualCitizen->name);
-        $this->assertEquals($expectedCitizen->email, $actualCitizen->email);
+        $this->assertNotEmpty($actualCitizen->getId());
+        $this->assertEquals($expectedCitizen->name, $actualCitizen->getName());
+        $this->assertEquals($expectedCitizen->email, $actualCitizen->getEmail());
     }
 
     /** @test */
@@ -134,9 +134,9 @@ class CitizenRepositoryTest extends TestCase
         $this->citizenRepository->update($expectedCitizen);
         $actualCitizen = $this->entityManager->find(Citizen::class, $expectedCitizen->id);
 
-        $this->assertEquals($expectedCitizen->id, $actualCitizen->id);
-        $this->assertEquals($payload['name'], $actualCitizen->name);
-        $this->assertEquals($expectedCitizen->email, $actualCitizen->email);
+        $this->assertEquals($expectedCitizen->id, $actualCitizen->getId());
+        $this->assertEquals($payload['name'], $actualCitizen->getName());
+        $this->assertEquals($expectedCitizen->email, $actualCitizen->getEmail());
     }
 
     private function toInfrastructureEntity(Entity $entity): Citizen

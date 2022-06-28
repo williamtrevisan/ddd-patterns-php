@@ -19,16 +19,26 @@ use Infrastructure\Book\Doctrine\Repository\AuthorRepository;
 class Author
 {
     #[ManyToMany(targetEntity: Book::class, mappedBy: 'author')]
-    public Collection $books;
+    private Collection $books;
 
     public function __construct(
         #[Id]
         #[Column(type: Types::GUID)]
-        public string $id,
+        private string $id,
         #[Column(type: 'string')]
-        public string $name,
+        private string $name,
     ) {
         $this->books = new ArrayCollection();
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function setName(string $name): void
@@ -36,7 +46,7 @@ class Author
         $this->name = $name;
     }
 
-    public function books(): ArrayCollection
+    public function getBooks(): ArrayCollection
     {
         return $this->books;
     }

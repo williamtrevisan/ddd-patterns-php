@@ -74,11 +74,11 @@ class BookRepositoryTest extends TestCase
         $this->bookRepository->create($expectedBook);
         $actualBook = $this->entityManager->find(Book::class, $expectedBook->id);
 
-        $this->assertNotEmpty($actualBook->id);
-        $this->assertEquals($expectedBook->libraryId, $actualBook->libraryId);
-        $this->assertEquals($expectedBook->title, $actualBook->title);
-        $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
-        $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
+        $this->assertNotEmpty($actualBook->getId());
+        $this->assertEquals($expectedBook->libraryId, $actualBook->getLibraryId());
+        $this->assertEquals($expectedBook->title, $actualBook->getTitle());
+        $this->assertEquals($expectedBook->pageNumber, $actualBook->getPageNumber());
+        $this->assertEquals($expectedBook->yearLaunched, $actualBook->getYearLaunched());
     }
 
     /** @test */
@@ -101,14 +101,14 @@ class BookRepositoryTest extends TestCase
         $this->bookRepository->create($expectedBook);
         $actualBook = $this->entityManager->find(Book::class, $expectedBook->id);
 
-        $this->assertNotEmpty($actualBook->id);
-        $this->assertEquals($expectedBook->libraryId, $actualBook->libraryId);
-        $this->assertEquals($expectedBook->title, $actualBook->title);
-        $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
-        $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
-        $this->assertCount(1, $actualBook->authors());
-        $this->assertEquals($author->id, $actualBook->authors()[0]->id);
-        $this->assertEquals($author->name, $actualBook->authors()[0]->name);
+        $this->assertNotEmpty($actualBook->getId());
+        $this->assertEquals($expectedBook->libraryId, $actualBook->getLibraryId());
+        $this->assertEquals($expectedBook->title, $actualBook->getTitle());
+        $this->assertEquals($expectedBook->pageNumber, $actualBook->getPageNumber());
+        $this->assertEquals($expectedBook->yearLaunched, $actualBook->getYearLaunched());
+        $this->assertCount(1, $actualBook->getAuthors());
+        $this->assertEquals($author->id, $actualBook->getAuthors()[0]->getId());
+        $this->assertEquals($author->name, $actualBook->getAuthors()[0]->getName());
     }
 
     /** @test */
@@ -134,16 +134,16 @@ class BookRepositoryTest extends TestCase
         $this->bookRepository->create($expectedBook);
         $actualBook = $this->entityManager->find(Book::class, $expectedBook->id);
 
-        $this->assertNotEmpty($actualBook->id);
-        $this->assertEquals($expectedBook->libraryId, $actualBook->libraryId);
-        $this->assertEquals($expectedBook->title, $actualBook->title);
-        $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
-        $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
-        $this->assertCount(2, $actualBook->authors());
-        $this->assertEquals($author1->id, $actualBook->authors()[0]->id);
-        $this->assertEquals($author1->name, $actualBook->authors()[0]->name);
-        $this->assertEquals($author2->id, $actualBook->authors()[1]->id);
-        $this->assertEquals($author2->name, $actualBook->authors()[1]->name);
+        $this->assertNotEmpty($actualBook->getId());
+        $this->assertEquals($expectedBook->libraryId, $actualBook->getLibraryId());
+        $this->assertEquals($expectedBook->title, $actualBook->getTitle());
+        $this->assertEquals($expectedBook->pageNumber, $actualBook->getPageNumber());
+        $this->assertEquals($expectedBook->yearLaunched, $actualBook->getYearLaunched());
+        $this->assertCount(2, $actualBook->getAuthors());
+        $this->assertEquals($author1->id, $actualBook->getAuthors()[0]->getId());
+        $this->assertEquals($author1->name, $actualBook->getAuthors()[0]->getName());
+        $this->assertEquals($author2->id, $actualBook->getAuthors()[1]->getId());
+        $this->assertEquals($author2->name, $actualBook->getAuthors()[1]->getName());
     }
 
     /** @test */
@@ -238,11 +238,11 @@ class BookRepositoryTest extends TestCase
         $this->bookRepository->update($expectedBook);
         $actualBook = $this->entityManager->find(Book::class, $expectedBook->id);
 
-        $this->assertEquals($expectedBook->id, $actualBook->id);
-        $this->assertEquals($expectedBook->libraryId, $actualBook->libraryId);
-        $this->assertEquals($payload['title'], $actualBook->title);
-        $this->assertEquals($expectedBook->pageNumber, $actualBook->pageNumber);
-        $this->assertEquals($expectedBook->yearLaunched, $actualBook->yearLaunched);
+        $this->assertEquals($expectedBook->id, $actualBook->getId());
+        $this->assertEquals($expectedBook->libraryId, $actualBook->getLibraryId());
+        $this->assertEquals($payload['title'], $actualBook->getTitle());
+        $this->assertEquals($expectedBook->pageNumber, $actualBook->getPageNumber());
+        $this->assertEquals($expectedBook->yearLaunched, $actualBook->getYearLaunched());
     }
 
     private function toInfrastructureEntity(Entity $entity): Book

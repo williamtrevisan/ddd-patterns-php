@@ -51,8 +51,8 @@ class AuthorRepository extends EntityRepository implements AuthorRepositoryInter
     private function toDomainEntity(object $object): Entity
     {
         return new DomainAuthor(
-            id: $object->id,
-            name: $object->name,
+            id: $object->getId(),
+            name: $object->getName(),
         );
     }
 

@@ -21,25 +21,25 @@ class Book
 {
     #[ManyToMany(targetEntity: Author::class, inversedBy: 'author')]
     #[JoinTable(name: 'books_authors')]
-    public Collection $authors;
+    private Collection $authors;
 
     public function __construct(
         #[Id]
         #[Column(type: Types::GUID)]
-        public string $id,
+        private string $id,
         #[Column(name: 'id_library', type: Types::GUID)]
-        public string $libraryId,
+        private string $libraryId,
         #[Column(type: 'string')]
-        public string $title,
+        private string $title,
         #[Column(name: 'page_number', type: Types::INTEGER)]
-        public int $pageNumber,
+        private int $pageNumber,
         #[Column(name: 'year_launched', type: Types::INTEGER)]
-        public int $yearLaunched,
+        private int $yearLaunched,
     ) {
         $this->authors = new ArrayCollection();
     }
 
-    public function authors(): array
+    public function getAuthors(): array
     {
         return $this->authors->toArray();
     }
@@ -51,9 +51,24 @@ class Book
         $this->authors->add($author);
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getLibraryId(): string
+    {
+        return $this->libraryId;
+    }
+
     public function setLibraryId(string $libraryId): void
     {
         $this->libraryId = $libraryId;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
     public function setTitle(string $title): void
@@ -61,9 +76,19 @@ class Book
         $this->title = $title;
     }
 
+    public function getPageNumber(): int
+    {
+        return $this->pageNumber;
+    }
+
     public function setPageNumber(int $pageNumber): void
     {
         $this->pageNumber = $pageNumber;
+    }
+
+    public function getYearLaunched(): int
+    {
+        return $this->yearLaunched;
     }
 
     public function setYearLaunched(int $yearLaunched): void

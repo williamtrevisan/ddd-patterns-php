@@ -60,8 +60,8 @@ class AuthorRepositoryTest extends TestCase
         $this->authorRepository->create($expectedAuthor);
         $actualAuthor = $this->entityManager->find(Author::class, $expectedAuthor->id);
 
-        $this->assertNotEmpty($actualAuthor->id);
-        $this->assertEquals($expectedAuthor->name, $actualAuthor->name);
+        $this->assertNotEmpty($actualAuthor->getId());
+        $this->assertEquals($expectedAuthor->name, $actualAuthor->getName());
     }
 
     /** @test */
@@ -115,8 +115,8 @@ class AuthorRepositoryTest extends TestCase
         $this->authorRepository->update($expectedAuthor);
         $actualAuthor = $this->entityManager->find(Author::class, $expectedAuthor->id);
 
-        $this->assertEquals($expectedAuthor->id, $actualAuthor->id);
-        $this->assertEquals($payload['name'], $actualAuthor->name);
+        $this->assertEquals($expectedAuthor->id, $actualAuthor->getId());
+        $this->assertEquals($payload['name'], $actualAuthor->getName());
     }
 
     private function toInfrastructureEntity(Entity $entity): Author

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Book\Repository;
+namespace Domain\Author\Repository;
 
 use Domain\shared\Repository\RepositoryInterface;
 

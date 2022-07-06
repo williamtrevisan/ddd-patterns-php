@@ -8,10 +8,10 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\Tools\SchemaTool;
-use Domain\Book\Factory\AuthorFactory;
+use Domain\Author\Factory\AuthorFactory;
 use Domain\shared\Entity\Entity;
 use Exception;
-use Infrastructure\Book\Doctrine\Entity\Author;
+use Infrastructure\Author\Doctrine\Entity\Author;
 use PHPUnit\Framework\TestCase;
 
 class AuthorRepositoryTest extends TestCase

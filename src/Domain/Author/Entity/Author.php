@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Domain\Book\Entity;
+namespace Domain\Author\Entity;
 
 use Domain\shared\Entity\Entity;
 use InvalidArgumentException;

@@ -9,7 +9,7 @@ use Domain\Book\Entity\Book as DomainBook;
 use Domain\Book\Repository\BookRepositoryInterface;
 use Domain\shared\Entity\Entity;
 use Exception;
-use Infrastructure\Book\Doctrine\Entity\Author as InfrastructureAuthor;
+use Infrastructure\Author\Doctrine\Entity\Author as InfrastructureAuthor;
 use Infrastructure\Book\Doctrine\Entity\Book as InfrastructureBook;
 
 class BookRepository extends EntityRepository implements BookRepositoryInterface

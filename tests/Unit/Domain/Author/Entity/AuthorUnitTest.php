@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Domain\Book\Entity;
+namespace Tests\Domain\Author\Entity;
 
-use Domain\Book\Entity\Author;
+use Domain\Author\Entity\Author;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;

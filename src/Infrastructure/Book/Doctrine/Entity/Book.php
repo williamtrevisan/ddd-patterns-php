@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\Table;
+use Infrastructure\Author\Doctrine\Entity\Author;
 use Infrastructure\Book\Doctrine\Repository\BookRepository;
 
 #[Entity(repositoryClass: BookRepository::class)]

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Book\Doctrine\Repository;
+namespace Infrastructure\Author\Doctrine\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Domain\Book\Entity\Author as DomainAuthor;
-use Domain\Book\Repository\AuthorRepositoryInterface;
+use Domain\Author\Entity\Author as DomainAuthor;
+use Domain\Author\Repository\AuthorRepositoryInterface;
 use Domain\shared\Entity\Entity;
 use Exception;
-use Infrastructure\Book\Doctrine\Entity\Author as InfrastructureAuthor;
+use Infrastructure\Author\Doctrine\Entity\Author as InfrastructureAuthor;
 
 class AuthorRepository extends EntityRepository implements AuthorRepositoryInterface
 {

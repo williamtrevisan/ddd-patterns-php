@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Infrastructure\Book\Doctrine\Entity;
+namespace Infrastructure\Author\Doctrine\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +12,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\Table;
-use Infrastructure\Book\Doctrine\Repository\AuthorRepository;
+use Infrastructure\Author\Doctrine\Repository\AuthorRepository;
+use Infrastructure\Book\Doctrine\Entity\Book;
 
 #[Entity(repositoryClass: AuthorRepository::class)]
 #[Table(name: 'authors')]

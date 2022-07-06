@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Domain\Book\Factory;
+namespace Domain\Author\Factory;
 
-use Domain\Book\Entity\Author;
+use Domain\Author\Entity\Author;
 use Ramsey\Uuid\Uuid;
 
 class AuthorFactory
